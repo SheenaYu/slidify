@@ -1,0 +1,70 @@
+---
+title       : Life Expectancy Prediction
+subtitle    : Developing Data Products - Final Project
+author      : Sheena
+job         : Student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+## Introduction
+* The purpose of this project is to make prediction for the life expectancy of people in a area given three predictors:
+  Murder rate, Percent of High-school graduates and number of frost days
+
+
+## Data Examination
+
+* The data set I use is a built-in data set called state.x77. Let's take a brief look at the data set (first 6 observations):
+```{R, echo = F}
+options(width = 400)
+library(datasets)
+st <- as.data.frame(state.x77)
+head(st)
+
+```
+
+--- 
+
+## Predictors Selection
+After stepwise regression to reach the minimum adequate model, I choose Murder, HS Grad and Frost as the independent variables which are statistically significant at level of 0.05, to predict the life expectancy of a specified area.
+```{R, echo = F}
+options(width = 400)
+colnames(st)[4] = "Life.Exp"        
+colnames(st)[6] = "HS.Grad"
+model = lm(Life.Exp ~ Murder + HS.Grad + Frost, data=st)
+summary.lm(model)
+```
+
+---
+## Plot Fit
+
+```{r, echo = F, fig.align='center' }
+par(mfrow=c(2,2))                    
+plot(model)
+par(mfrow=c(1,1)) 
+
+```
+
+
+
+---
+## Model Prediction
+* Murder rate and frost days have a negative relationship with life expectancy, while the percentage of high-school graduates has a positive relationship.
+
+
+* UI: The left tab give users an interactive function to put in values they desire. The main panel on the right will display corresponding results.
+
+* Now you can try to input the values and check the predictions. 
+
+* The data app is hosted on https://sheenayu.shinyapps.io/coursera_project/
+
+## Thank You !
+
+
+
+
+
